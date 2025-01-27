@@ -1,2 +1,2 @@
-*.jsx linguist-language=JavaScript
-*.tsx linguist-language=JavaScript
+*.jsx linguist-language=JavaScriptReact
+*.tsx linguist-language=TypeScriptReact
