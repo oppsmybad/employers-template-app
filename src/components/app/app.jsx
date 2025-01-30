@@ -8,62 +8,61 @@ import EmployersAddForm from "../employers-add-form/employers-add-form";
 
 import "./app.css";
 
-class WhoAmI extends Component {
-    // use props from Component
-    constructor(props) {
-        super(props);
-        // create states
-        this.state = {
-            years: 27,
-            text: "+++",
-            position: "",
-        };
-    }
+// class WhoAmI extends Component {
+// use props from Component
+// constructor(props) {
+//     super(props);
+//     // create states
+//     this.state = {
+//         years: 27,
+//         text: "+++",
+//         position: "",
+//     };
+// }
 
-    // arrow function
-    nextYear = () => {
-        // use callback
-        this.setState((state) => ({
-            // return new state
-            years: state.years + 1,
-        }));
-    };
+// arrow function
+// nextYear = () => {
+//     // use callback
+//     this.setState((state) => ({
+//         // return new state
+//         years: state.years + 1,
+//     }));
+// };
 
-    commitInputChanges = (e, color) => {
-        console.log(color);
-        this.setState({
-            position: e.target.value,
-        });
-    };
+// commitInputChanges = (e, color) => {
+//     console.log(color);
+//     this.setState({
+//         position: e.target.value,
+//     });
+// };
 
-    render() {
-        const { name, surname, link } = this.props;
-        const { position, years } = this.state;
+//     render() {
+//         // const { name, surname, link } = this.props;
+//         // const { position, years } = this.state;
 
-        return (
-            <div>
-                <button onClick={this.nextYear}>{this.state.text}</button>
-                {/* obj */}
-                <h1>
-                    {/* return func(name) */}
-                    My name is {name}, surname - {surname}, age - {years},
-                    position - {position}
-                </h1>
-                <a href={link}>My profile</a>
-                <form>
-                    <span>Введите должность</span>
-                    {/* // addEventListener */}
-                    <input
-                        type="text"
-                        onChange={(e) =>
-                            this.commitInputChanges(e, "some color")
-                        }
-                    />
-                </form>
-            </div>
-        );
-    }
-}
+//         return (
+//             <div>
+//                 {/* <button onClick={this.nextYear}>{this.state.text}</button> */}
+//                 {/* obj */}
+//                 {/* <h1>
+//                     return func(name) My name is {name}, surname - {surname},
+//                     age - {years}, position - {position}
+//                 </h1> */}
+//                 {/* <a href={link}>My profile</a>
+//                 <form>
+//                     <span>Введите должность</span>
+//                     // addEventListener
+//                     <input
+//                         type="text"
+//                         onChange={(e) =>
+//                             this.commitInputChanges(e, "some color")
+//                         }
+//                     />
+//                 </form> */}
+//             </div>
+//         );
+//     }
+// }
 
 function App() {
     const data = [
@@ -76,9 +75,9 @@ function App() {
         <div className="app">
             <AppInfo />
             {/* props */}
-            <WhoAmI name="Alex" surname="Shepard" link="facebook.com" />
+            {/* <WhoAmI name="Alex" surname="Shepard" link="facebook.com" /> */}
             {/* props */}
-            <WhoAmI name="Clint" surname="Istvud" link="vk.com" />
+            {/* <WhoAmI name="Clint" surname="Istvud" link="vk.com" /> */}
             <div className="search-panel">
                 <SearchPanel />
                 <AppFilter />
