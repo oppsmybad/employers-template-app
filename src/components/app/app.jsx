@@ -8,84 +8,56 @@ import EmployersAddForm from "../employers-add-form/employers-add-form";
 
 import "./app.css";
 
-// class WhoAmI extends Component {
-// use props from Component
-// constructor(props) {
-//     super(props);
-//     // create states
-//     this.state = {
-//         years: 27,
-//         text: "+++",
-//         position: "",
-//     };
-// }
+class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [
+                { name: "John C.", salary: 1200, increase: true, id: 1 },
+                { name: "Alex M.", salary: 1800, increase: false, id: 2 },
+                { name: "John C.", salary: 2600, increase: false, id: 3 },
+            ],
+        };
 
-// arrow function
-// nextYear = () => {
-//     // use callback
-//     this.setState((state) => ({
-//         // return new state
-//         years: state.years + 1,
-//     }));
-// };
+        this.maxId = 4;
+    }
 
-// commitInputChanges = (e, color) => {
-//     console.log(color);
-//     this.setState({
-//         position: e.target.value,
-//     });
-// };
+    deleteItem = (id) => {
+        this.setState(({ data }) => {
+            // first way to deleteItem
 
-//     render() {
-//         // const { name, surname, link } = this.props;
-//         // const { position, years } = this.state;
+            // const index = data.findIndex((elem) => elem.id === id);
 
-//         return (
-//             <div>
-//                 {/* <button onClick={this.nextYear}>{this.state.text}</button> */}
-//                 {/* obj */}
-//                 {/* <h1>
-//                     return func(name) My name is {name}, surname - {surname},
-//                     age - {years}, position - {position}
-//                 </h1> */}
-//                 {/* <a href={link}>My profile</a>
-//                 <form>
-//                     <span>Введите должность</span>
-//                     // addEventListener
-//                     <input
-//                         type="text"
-//                         onChange={(e) =>
-//                             this.commitInputChanges(e, "some color")
-//                         }
-//                     />
-//                 </form> */}
-//             </div>
-//         );
-//     }
-// }
+            // first way to deleteItem
+            // const before = data.slice(0, index);
+            // const after = data.slice(index + 1);
 
-function App() {
-    const data = [
-        { name: "John C.", salary: 1200, increase: true, id: 1 },
-        { name: "Alex M.", salary: 1800, increase: false, id: 2 },
-        { name: "John C.", salary: 2600, increase: false, id: 3 },
-    ];
+            // const newArr = [...before, ...after];
 
-    return (
-        <div className="app">
-            <AppInfo />
-            {/* props */}
-            {/* <WhoAmI name="Alex" surname="Shepard" link="facebook.com" /> */}
-            {/* props */}
-            {/* <WhoAmI name="Clint" surname="Istvud" link="vk.com" /> */}
-            <div className="search-panel">
-                <SearchPanel />
-                <AppFilter />
+            // second way to deleteItem
+            return {
+                data: data.filter((item) => item.id !== id),
+            };
+            // console.log(index); находим индекс по методу findIndex()
+        });
+    };
+
+    render() {
+        return (
+            <div className="app">
+                <AppInfo />
+                <div className="search-panel">
+                    <SearchPanel />
+                    <AppFilter />
+                </div>
+                <EmployersList
+                    data={this.state.data}
+                    onDelete={this.deleteItem}
+                />
+                <EmployersAddForm />
             </div>
-            <EmployersList data={data} />
-            <EmployersAddForm />
-        </div>
-    );
+        );
+    }
 }
 
 export default App;
