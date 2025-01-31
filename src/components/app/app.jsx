@@ -8,43 +8,6 @@ import EmployersAddForm from "../employers-add-form/employers-add-form";
 
 import "./app.css";
 
-// test class
-class WhoAmI extends Component {
-    // use props from Component
-    constructor(props) {
-        super(props);
-        // create states
-        this.state = {
-            years: 27,
-            text: "+++",
-        };
-    }
-    // arrow function
-    nextYear = () => {
-        // use callback
-        this.setState((state) => ({
-            // return new state
-            years: state.years + 1,
-        }));
-    };
-    render() {
-        const { name, surname, link } = this.props;
-        return (
-            // change div to empty tag (react fragment)
-            <>
-                {/* obj */}
-                <h1>
-                    {/* return func(name) */}
-                    My name is {name}, surname - {surname}, age -{" "}
-                    {this.state.years}
-                </h1>
-                <a href={link}>My profile</a>
-                <button onClick={this.nextYear}>{this.state.text}</button>
-            </>
-        );
-    }
-}
-
 class App extends Component {
     constructor(props) {
         super(props);
@@ -52,26 +15,28 @@ class App extends Component {
             data: [
                 {
                     name: "John C.",
-                    salary: 1200,
+                    salary: 600,
                     increase: true,
                     rise: true,
                     id: 1,
                 },
                 {
                     name: "Alex M.",
-                    salary: 1800,
+                    salary: 900,
                     increase: false,
                     rise: false,
                     id: 2,
                 },
                 {
-                    name: "John C.",
-                    salary: 2600,
+                    name: "Karl R.",
+                    salary: 1200,
                     increase: false,
                     rise: false,
                     id: 3,
                 },
             ],
+            term: "",
+            filter: "all",
         };
 
         this.maxId = 4;
@@ -152,28 +117,59 @@ class App extends Component {
     //     }));
     // };
 
+    searchEmp = (items, term) => {
+        // Проверка пустой строки
+        if (term.length === 0) {
+            return items;
+        }
+
+        return items.filter((item) => {
+            return item.name.indexOf(term) > -1;
+        });
+    };
+
+    onUpdateSearch = (term) => {
+        this.setState({ term });
+    };
+
+    filterPost = (items, filter) => {
+        switch (filter) {
+            case "rise":
+                return items.filter((item) => item.rise);
+            case "salaryMoreThen1000":
+                return items.filter((item) => item.salary > 1000);
+            default:
+                return items;
+        }
+    };
+
+    onFilterSelect = (filter) => {
+        this.setState({ filter });
+    };
+
     render() {
+        const { data, term, filter } = this.state;
         const employers = this.state.data.length;
         const increased = this.state.data.filter(
             (item) => item.increase
         ).length;
+        // Комбинированная Фильтрация
+        const visibleData = this.filterPost(this.searchEmp(data, term), filter);
 
         return (
-            // change to fragment
             <div className="app">
                 <AppInfo employers={employers} increased={increased} />
 
-                {/* test components */}
-                <WhoAmI name="Alex" surname="Shepard" link="facebook.com" />
-                <WhoAmI name="Clint" surname="Istvud" link="vk.com" />
-
                 <div className="search-panel">
-                    <SearchPanel />
-                    <AppFilter />
+                    <SearchPanel onUpdateSearch={this.onUpdateSearch} />
+                    <AppFilter
+                        filter={filter}
+                        onFilterSelect={this.onFilterSelect}
+                    />
                 </div>
 
                 <EmployersList
-                    data={this.state.data}
+                    data={visibleData}
                     onDelete={this.deleteItem}
                     onToggleProp={this.onToggleProp}
                 />
