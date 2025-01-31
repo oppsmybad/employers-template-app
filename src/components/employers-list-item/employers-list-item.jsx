@@ -1,7 +1,20 @@
 import "./employers-list-item.css";
 
 const EmployersListItem = (props) => {
-    const { name, salary, onDelete, onToggleProp, increase, rise } = props;
+    const {
+        name,
+        salary,
+        onDelete,
+        onToggleProp,
+        increase,
+        rise,
+        onSalaryChange,
+    } = props;
+
+    const handleSalaryChange = (e) => {
+        const newSalary = e.target.value.replace(/\D/g, ""); // Оставляем только цифры
+        onSalaryChange(newSalary);
+    };
 
     let classNames = "list-group-item d-flex justify-content-between";
     if (increase) {
@@ -24,7 +37,9 @@ const EmployersListItem = (props) => {
             <input
                 type="text"
                 className="list-group-item-input"
-                defaultValue={salary + "$"}
+                value={salary + "$"}
+                onChange={handleSalaryChange} // Сохраняем изменения
+                // defaultValue={salary + "$"}
             />
             <div className="d-flex justify-content-center align-items-center">
                 <button

@@ -11,35 +11,38 @@ import "./app.css";
 class App extends Component {
     constructor(props) {
         super(props);
+        const savedData = JSON.parse(localStorage.getItem("employers")) || [
+            {
+                name: "John C.",
+                salary: 600,
+                increase: true,
+                rise: true,
+                id: 1,
+            },
+            {
+                name: "Alex M.",
+                salary: 900,
+                increase: false,
+                rise: false,
+                id: 2,
+            },
+            {
+                name: "Karl R.",
+                salary: 1200,
+                increase: false,
+                rise: false,
+                id: 3,
+            },
+        ];
         this.state = {
-            data: [
-                {
-                    name: "John C.",
-                    salary: 600,
-                    increase: true,
-                    rise: true,
-                    id: 1,
-                },
-                {
-                    name: "Alex M.",
-                    salary: 900,
-                    increase: false,
-                    rise: false,
-                    id: 2,
-                },
-                {
-                    name: "Karl R.",
-                    salary: 1200,
-                    increase: false,
-                    rise: false,
-                    id: 3,
-                },
-            ],
+            data: savedData,
             term: "",
             filter: "all",
         };
 
-        this.maxId = 4;
+        this.maxId = savedData.length
+            ? Math.max(...savedData.map((item) => item.id)) + 1
+            : 1;
     }
 
     deleteItem = (id) => {
@@ -73,6 +76,9 @@ class App extends Component {
 
         this.setState(({ data }) => {
             const newArr = [...data, newItem];
+
+            this.saveToLocalStorage(newArr);
+
             return {
                 data: newArr,
             };
@@ -147,6 +153,24 @@ class App extends Component {
         this.setState({ filter });
     };
 
+    // Метод сохранения данных в localStorage
+    saveToLocalStorage = (data) => {
+        localStorage.setItem("employers", JSON.stringify(data));
+    };
+
+    // Обновление зарплаты и сохранение в localStorage
+    updateSalary = (id, newSalary) => {
+        this.setState(({ data }) => {
+            const updatedData = data.map((item) =>
+                item.id === id ? { ...item, salary: newSalary } : item
+            );
+
+            this.saveToLocalStorage(updatedData); // Сохраняем в localStorage
+
+            return { data: updatedData };
+        });
+    };
+
     render() {
         const { data, term, filter } = this.state;
         const employers = this.state.data.length;
@@ -172,6 +196,7 @@ class App extends Component {
                     data={visibleData}
                     onDelete={this.deleteItem}
                     onToggleProp={this.onToggleProp}
+                    onSalaryChange={this.updateSalary} // Передаем обработчик
                 />
                 <EmployersAddForm onAdd={this.addItem} />
             </div>

@@ -2,7 +2,7 @@ import EmployersListItem from "../employers-list-item/employers-list-item";
 
 import "./employers-list.css";
 
-const EmployersList = ({ data, onDelete, onToggleProp }) => {
+const EmployersList = ({ data, onDelete, onToggleProp, onSalaryChange }) => {
     const elements = data.map((item) => {
         const { id, ...itemProps } = item;
         // ... spread operator
@@ -17,6 +17,7 @@ const EmployersList = ({ data, onDelete, onToggleProp }) => {
                         e.currentTarget.getAttribute("data-toggle")
                     )
                 }
+                onSalaryChange={(newSalary) => onSalaryChange(id, newSalary)}
             />
         );
     });
