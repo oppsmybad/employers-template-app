@@ -1,5 +1,4 @@
-// get fragment for test
-import { Component, Fragment } from "react";
+import { Component } from "react";
 
 import AppInfo from "../app-info/app-info";
 import SearchPanel from "../search-panel/search-panel";
@@ -31,7 +30,8 @@ class WhoAmI extends Component {
     render() {
         const { name, surname, link } = this.props;
         return (
-            <div>
+            // change div to empty tag (react fragment)
+            <>
                 {/* obj */}
                 <h1>
                     {/* return func(name) */}
@@ -40,7 +40,7 @@ class WhoAmI extends Component {
                 </h1>
                 <a href={link}>My profile</a>
                 <button onClick={this.nextYear}>{this.state.text}</button>
-            </div>
+            </>
         );
     }
 }
@@ -160,7 +160,7 @@ class App extends Component {
 
         return (
             // change to fragment
-            <Fragment>
+            <div className="app">
                 <AppInfo employers={employers} increased={increased} />
 
                 {/* test components */}
@@ -178,7 +178,7 @@ class App extends Component {
                     onToggleProp={this.onToggleProp}
                 />
                 <EmployersAddForm onAdd={this.addItem} />
-            </Fragment>
+            </div>
         );
     }
 }
