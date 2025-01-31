@@ -19,6 +19,18 @@ class EmployersAddForm extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
+        const { name, salary } = this.state;
+
+        // Проверка на пустые строки и зарплату <= 0
+        if (
+            !name.trim() ||
+            !salary.trim() ||
+            isNaN(salary) ||
+            Number(salary) <= 0
+        ) {
+            alert("Введите корректные данные сотрудника!");
+            return;
+        }
         this.props.onAdd(this.state.name, this.state.salary);
         this.setState({
             name: "",
@@ -27,7 +39,7 @@ class EmployersAddForm extends Component {
     };
 
     render() {
-        const { name, salary } = this.state;
+        let { name, salary } = this.state;
 
         return (
             <div className="app-add-form">
