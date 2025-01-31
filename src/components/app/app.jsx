@@ -1,4 +1,5 @@
-import { Component } from "react";
+// get fragment for test
+import { Component, Fragment } from "react";
 
 import AppInfo from "../app-info/app-info";
 import SearchPanel from "../search-panel/search-panel";
@@ -7,6 +8,42 @@ import EmployersList from "../employers-list/employers-list";
 import EmployersAddForm from "../employers-add-form/employers-add-form";
 
 import "./app.css";
+
+// test class
+class WhoAmI extends Component {
+    // use props from Component
+    constructor(props) {
+        super(props);
+        // create states
+        this.state = {
+            years: 27,
+            text: "+++",
+        };
+    }
+    // arrow function
+    nextYear = () => {
+        // use callback
+        this.setState((state) => ({
+            // return new state
+            years: state.years + 1,
+        }));
+    };
+    render() {
+        const { name, surname, link } = this.props;
+        return (
+            <div>
+                {/* obj */}
+                <h1>
+                    {/* return func(name) */}
+                    My name is {name}, surname - {surname}, age -{" "}
+                    {this.state.years}
+                </h1>
+                <a href={link}>My profile</a>
+                <button onClick={this.nextYear}>{this.state.text}</button>
+            </div>
+        );
+    }
+}
 
 class App extends Component {
     constructor(props) {
@@ -122,8 +159,13 @@ class App extends Component {
         ).length;
 
         return (
-            <div className="app">
+            // change to fragment
+            <Fragment>
                 <AppInfo employers={employers} increased={increased} />
+
+                {/* test components */}
+                <WhoAmI name="Alex" surname="Shepard" link="facebook.com" />
+                <WhoAmI name="Clint" surname="Istvud" link="vk.com" />
 
                 <div className="search-panel">
                     <SearchPanel />
@@ -136,7 +178,7 @@ class App extends Component {
                     onToggleProp={this.onToggleProp}
                 />
                 <EmployersAddForm onAdd={this.addItem} />
-            </div>
+            </Fragment>
         );
     }
 }
