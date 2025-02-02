@@ -1,6 +1,10 @@
 import { Component } from "react";
 
-import "./employers-add-form.css";
+// import "./employers-add-form.css";
+
+// import scss file
+// WARNING! download sass module to use scss
+import "./employers-add-form.scss";
 
 class EmployersAddForm extends Component {
     constructor(props) {
