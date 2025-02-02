@@ -16,8 +16,19 @@ class EmployersAddForm extends Component {
     }
 
     onValueChange = (e) => {
+        const { name, value } = e.target;
+
+        if (name === "name") {
+            // Валидация на ру-англ алфавит
+            const regex = /^[a-zA-Zа-яА-ЯёЁ\s-]+$/;
+
+            if (!regex.test(value) && value !== "") {
+                return;
+            }
+        }
+
         this.setState({
-            [e.target.name]: e.target.value,
+            [name]: value,
         });
     };
 
@@ -60,7 +71,7 @@ class EmployersAddForm extends Component {
                     <input
                         type="number"
                         className="form-control new-post-label"
-                        placeholder="З/П в $?"
+                        placeholder="З/П в $? (только числа)"
                         name="salary"
                         value={salary}
                         onChange={this.onValueChange}

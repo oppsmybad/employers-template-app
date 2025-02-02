@@ -1,4 +1,4 @@
-@import "./variables.scss";
+// @import "./variables.scss";
 
 body {
     margin: 50px 0;
@@ -7,7 +7,7 @@ body {
         "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: $main-color;
+    background-color: #fff;
 }
 
 code {

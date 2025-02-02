@@ -1,7 +1,19 @@
+import { useState } from "react";
+
 import "./employers-list-item.css";
 
 const EmployersListItem = (props) => {
-    const { name, salary, onDelete, onToggleProp, increase, rise } = props;
+    const {
+        name,
+        salary,
+        onDelete,
+        onToggleProp,
+        increase,
+        rise,
+        onSalaryChange,
+    } = props;
+
+    const [newSalary, setNewSalary] = useState(salary);
 
     let classNames = "list-group-item d-flex justify-content-between";
     if (increase) {
@@ -11,6 +23,14 @@ const EmployersListItem = (props) => {
         classNames += " like";
     }
 
+    const handleSalaryChange = (e) => {
+        setNewSalary(e.target.value.replace(/\D/g, ""));
+    };
+
+    const handleSalaryBlur = () => {
+        onSalaryChange(newSalary);
+    };
+
     return (
         <li className={classNames}>
             <span
@@ -18,20 +38,23 @@ const EmployersListItem = (props) => {
                 onClick={onToggleProp}
                 data-toggle="rise"
                 // inline styles
-                style={{
-                    fontSize: "36px",
-                    color: "red",
-                    transition: "all",
-                    WebkitTransition: "all",
-                    msTransition: "all",
-                }}
+                // style={{
+                //     fontSize: "36px",
+                //     color: "red",
+                //     transition: "all",
+                //     WebkitTransition: "all",
+                //     msTransition: "all",
+                // }}
             >
                 {name}
             </span>
             <input
                 type="text"
                 className="list-group-item-input"
-                defaultValue={salary + "$"}
+                // defaultValue={salary + "$"}
+                value={newSalary + "$"}
+                onChange={handleSalaryChange}
+                onBlur={handleSalaryBlur}
             />
             <div className="d-flex justify-content-center align-items-center">
                 <button

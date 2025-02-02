@@ -1,6 +1,6 @@
 // import variables.scss file
 // WARNING! download sass module to use scss
-@import "../../variables.scss";
+// @import "../../variables.scss";
 
 .add-form {
     margin-top: 20px;
@@ -16,5 +16,5 @@
     background-color: #3d5a80;
     border-radius: 4px;
     box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.15);
-    color: $main-color; // you can not use this variable without import variables-scss.file
+    color: #fff;
 }
