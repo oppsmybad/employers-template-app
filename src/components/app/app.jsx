@@ -11,60 +11,45 @@ import "./app.css";
 class App extends Component {
     constructor(props) {
         super(props);
-        const savedData = JSON.parse(localStorage.getItem("employers")) || [
-            {
-                name: "John C.",
-                salary: 600,
-                increase: true,
-                rise: true,
-                id: 1,
-            },
-            {
-                name: "Alex M.",
-                salary: 900,
-                increase: false,
-                rise: false,
-                id: 2,
-            },
-            {
-                name: "Karl R.",
-                salary: 1200,
-                increase: false,
-                rise: false,
-                id: 3,
-            },
-        ];
         this.state = {
-            data: savedData,
+            data: [
+                {
+                    name: "John C.",
+                    salary: 800,
+                    increase: false,
+                    rise: true,
+                    id: 1,
+                },
+                {
+                    name: "Alex M.",
+                    salary: 3000,
+                    increase: true,
+                    rise: false,
+                    id: 2,
+                },
+                {
+                    name: "Carl W.",
+                    salary: 5000,
+                    increase: false,
+                    rise: false,
+                    id: 3,
+                },
+            ],
             term: "",
             filter: "all",
         };
-
-        this.maxId = savedData.length
-            ? Math.max(...savedData.map((item) => item.id)) + 1
-            : 1;
+        this.maxId = 4;
     }
 
     deleteItem = (id) => {
         this.setState(({ data }) => {
-            // first way to deleteItem
-
-            // const index = data.findIndex((elem) => elem.id === id);
-
-            // first way to deleteItem
-            // const before = data.slice(0, index);
-            // const after = data.slice(index + 1);
-
-            // const newArr = [...before, ...after];
-
-            // second way to deleteItem
             return {
                 data: data.filter((item) => item.id !== id),
             };
-            // console.log(index); находим индекс по методу findIndex()
         });
     };
 
+    // Да, пока могут добавляться пустые пользователи. Мы это еще исправим
     addItem = (name, salary) => {
         const newItem = {
             name,
@@ -73,12 +58,8 @@ class App extends Component {
             rise: false,
             id: this.maxId++,
         };
-
         this.setState(({ data }) => {
             const newArr = [...data, newItem];
-
-            this.saveToLocalStorage(newArr);
-
             return {
                 data: newArr,
             };
@@ -86,22 +67,6 @@ class App extends Component {
     };
 
     onToggleProp = (id, prop) => {
-        // first way
-        // this.setState(({ data }) => {
-        //     const index = data.findIndex((elem) => elem.id === id);
-        //     const old = data[index];
-        //     const newItem = { ...old, increase: !old.increase };
-        //     const newArr = [
-        //         ...data.slice(0, index),
-        //         newItem,
-        //         ...data.slice(index + 1),
-        //     ];
-        //     return {
-        //         data: newArr,
-        //     };
-        // });
-
-        // second way
         this.setState(({ data }) => ({
             data: data.map((item) => {
                 if (item.id === id) {
@@ -112,19 +77,7 @@ class App extends Component {
         }));
     };
 
-    // onToggleRise = (id) => {
-    //     this.setState(({ data }) => ({
-    //         data: data.map((item) => {
-    //             if (item.id === id) {
-    //                 return { ...item, rise: !item.rise };
-    //             }
-    //             return item;
-    //         }),
-    //     }));
-    // };
-
     searchEmp = (items, term) => {
-        // Проверка пустой строки
         if (term.length === 0) {
             return items;
         }
@@ -142,7 +95,7 @@ class App extends Component {
         switch (filter) {
             case "rise":
                 return items.filter((item) => item.rise);
-            case "salaryMoreThen1000":
+            case "moreThen1000":
                 return items.filter((item) => item.salary > 1000);
             default:
                 return items;
@@ -153,31 +106,12 @@ class App extends Component {
         this.setState({ filter });
     };
 
-    // Метод сохранения данных в localStorage
-    saveToLocalStorage = (data) => {
-        localStorage.setItem("employers", JSON.stringify(data));
-    };
-
-    // Обновление зарплаты и сохранение в localStorage
-    updateSalary = (id, newSalary) => {
-        this.setState(({ data }) => {
-            const updatedData = data.map((item) =>
-                item.id === id ? { ...item, salary: newSalary } : item
-            );
-
-            this.saveToLocalStorage(updatedData); // Сохраняем в localStorage
-
-            return { data: updatedData };
-        });
-    };
-
     render() {
         const { data, term, filter } = this.state;
         const employers = this.state.data.length;
         const increased = this.state.data.filter(
             (item) => item.increase
         ).length;
-        // Комбинированная Фильтрация
         const visibleData = this.filterPost(this.searchEmp(data, term), filter);
 
         return (
@@ -196,7 +130,6 @@ class App extends Component {
                     data={visibleData}
                     onDelete={this.deleteItem}
                     onToggleProp={this.onToggleProp}
-                    onSalaryChange={this.updateSalary} // Передаем обработчик
                 />
                 <EmployersAddForm onAdd={this.addItem} />
             </div>

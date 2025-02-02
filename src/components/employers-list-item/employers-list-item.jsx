@@ -1,26 +1,12 @@
 import "./employers-list-item.css";
 
 const EmployersListItem = (props) => {
-    const {
-        name,
-        salary,
-        onDelete,
-        onToggleProp,
-        increase,
-        rise,
-        onSalaryChange,
-    } = props;
-
-    const handleSalaryChange = (e) => {
-        const newSalary = e.target.value.replace(/\D/g, ""); // Оставляем только цифры
-        onSalaryChange(newSalary);
-    };
+    const { name, salary, onDelete, onToggleProp, increase, rise } = props;
 
     let classNames = "list-group-item d-flex justify-content-between";
     if (increase) {
         classNames += " increase";
     }
-
     if (rise) {
         classNames += " like";
     }
@@ -31,15 +17,21 @@ const EmployersListItem = (props) => {
                 className="list-group-item-label"
                 onClick={onToggleProp}
                 data-toggle="rise"
+                // inline styles
+                style={{
+                    fontSize: "36px",
+                    color: "red",
+                    transition: "all",
+                    WebkitTransition: "all",
+                    msTransition: "all",
+                }}
             >
                 {name}
             </span>
             <input
                 type="text"
                 className="list-group-item-input"
-                value={salary + "$"}
-                onChange={handleSalaryChange} // Сохраняем изменения
-                // defaultValue={salary + "$"}
+                defaultValue={salary + "$"}
             />
             <div className="d-flex justify-content-center align-items-center">
                 <button
