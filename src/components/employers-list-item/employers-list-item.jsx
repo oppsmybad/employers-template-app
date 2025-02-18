@@ -37,21 +37,12 @@ const EmployersListItem = (props) => {
                 className="list-group-item-label"
                 onClick={onToggleProp}
                 data-toggle="rise"
-                // inline styles
-                // style={{
-                //     fontSize: "36px",
-                //     color: "red",
-                //     transition: "all",
-                //     WebkitTransition: "all",
-                //     msTransition: "all",
-                // }}
             >
                 {name}
             </span>
             <input
                 type="text"
                 className="list-group-item-input"
-                // defaultValue={salary + "$"}
                 value={newSalary + "$"}
                 onChange={handleSalaryChange}
                 onBlur={handleSalaryBlur}

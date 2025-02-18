@@ -1,9 +1,4 @@
 import { Component } from "react";
-
-// import "./employers-add-form.css";
-
-// import scss file
-// WARNING! download sass module to use scss
 import "./employers-add-form.scss";
 
 class EmployersAddForm extends Component {
@@ -19,7 +14,6 @@ class EmployersAddForm extends Component {
         const { name, value } = e.target;
 
         if (name === "name") {
-            // Валидация на ру-англ алфавит
             const regex = /^[a-zA-Zа-яА-ЯёЁ\s-]+$/;
 
             if (!regex.test(value) && value !== "") {
@@ -36,7 +30,6 @@ class EmployersAddForm extends Component {
         e.preventDefault();
         const { name, salary } = this.state;
 
-        // Проверка на пустые строки и зарплату <= 0
         if (
             !name.trim() ||
             !salary.trim() ||

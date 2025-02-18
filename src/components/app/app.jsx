@@ -1,96 +1,10 @@
 import { Component } from "react";
-
-// import css into react
-import "styled-components";
-import styled from "styled-components";
-
 import AppInfo from "../app-info/app-info";
 import SearchPanel from "../search-panel/search-panel";
 import AppFilter from "../app-filter/app-filter";
 import EmployersList from "../employers-list/employers-list";
 import EmployersAddForm from "../employers-add-form/employers-add-form";
-
 import "./app.css";
-
-// css styles (styled-css)
-// const EmpItem = styled.div`
-//     padding: 20px;
-//     margin-bottom: 15px;
-//     border-radius: 5px;
-//     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
-
-//     /* nested styles */
-//     a {
-//         display: block;
-//         margin: 10px 0 10px 0;
-//         color: ${(props) => (props.active ? "orange" : "black")};
-//     }
-//     input {
-//         display: block;
-//         margin-top: 10px;
-//     }
-// `;
-
-// // css styles (styled-css)
-// const StyledH1 = styled.h1`
-//     font-size: 36px;
-//     background-color: yellow;
-// `;
-
-// // const Header = styled.h2`
-// //     font-size: 22px;
-// // `;
-
-// export const Button = styled.button`
-//     display: block;
-//     padding: 5px 15px;
-//     background-color: gold;
-//     border: 1px solid rgba(0, 0, 0, 0.2);
-//     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
-// `;
-
-// //
-// class WhoAmI extends Component {
-//     // use props from Component
-//     constructor(props) {
-//         super(props);
-//         // create states
-//         this.state = {
-//             years: 27,
-//             text: "+++",
-//         };
-//     }
-//     // arrow function
-//     nextYear = () => {
-//         // use callback
-//         this.setState((state) => ({
-//             // return new state
-//             years: state.years + 1,
-//         }));
-//     };
-//     render() {
-//         const { name, surname, link } = this.props;
-//         return (
-//             // div from styled-css
-//             <EmpItem active>
-//                 {/* // use styled h1 */}
-//                 <StyledH1>
-//                     <h1>
-//                         {/* return func(name) */}
-//                         My name is {name}, surname - {surname}, age -{" "}
-//                         {this.state.years}
-//                     </h1>
-//                 </StyledH1>
-//                 <a href={link}>My profile</a>
-//                 <br></br>
-//                 {/* // use styled button */}
-//                 <Button style={{ marginTop: 20 }} onClick={this.nextYear}>
-//                     {this.state.text}
-//                 </Button>
-//             </EmpItem>
-//         );
-//     }
-// }
 
 class App extends Component {
     constructor(props) {
@@ -125,7 +39,6 @@ class App extends Component {
                   },
               ];
 
-        // Вычисляем максимальный ID
         const maxId = initialData.length
             ? Math.max(...initialData.map((item) => item.id))
             : 0;
@@ -138,7 +51,6 @@ class App extends Component {
         };
     }
 
-    // Метод сохранения данных в localStorage
     saveToLocalStorage = (data) => {
         localStorage.setItem("employers", JSON.stringify(data));
     };
@@ -146,7 +58,7 @@ class App extends Component {
     deleteItem = (id) => {
         this.setState(({ data }) => {
             const updatedData = data.filter((item) => item.id !== id);
-            this.saveToLocalStorage(updatedData); // Сохраняем изменения
+            this.saveToLocalStorage(updatedData);
             return {
                 data: updatedData,
             };
@@ -161,7 +73,7 @@ class App extends Component {
             salary: parseInt(salary, 10) || 0,
             increase: false,
             rise: false,
-            id: this.state.maxId + 1, // Используем maxId из состояния
+            id: this.state.maxId + 1,
         };
 
         this.setState(({ data, maxId }) => {
@@ -169,7 +81,7 @@ class App extends Component {
             this.saveToLocalStorage(newArr);
             return {
                 data: newArr,
-                maxId: maxId + 1, // Обновляем maxId
+                maxId: maxId + 1,
             };
         });
     };
@@ -179,7 +91,7 @@ class App extends Component {
             const updatedData = data.map((item) =>
                 item.id === id ? { ...item, [prop]: !item[prop] } : item
             );
-            this.saveToLocalStorage(updatedData); // Сохраняем изменения
+            this.saveToLocalStorage(updatedData);
             return { data: updatedData };
         });
     };
@@ -234,10 +146,6 @@ class App extends Component {
         return (
             <div className="app">
                 <AppInfo employers={employers} increased={increased} />
-
-                {/* // */}
-                {/* <WhoAmI name="Alex" surname="Shepard" link="facebook.com" />
-                <WhoAmI name="Clint" surname="Istvud" link="vk.com" /> */}
 
                 <div className="search-panel">
                     <SearchPanel onUpdateSearch={this.onUpdateSearch} />
