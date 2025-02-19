@@ -11,9 +11,11 @@ const EmployersListItem = (props) => {
         increase,
         rise,
         onSalaryChange,
+        onNameChange,
     } = props;
 
     const [newSalary, setNewSalary] = useState(salary);
+    const [newName, setNewName] = useState(name);
 
     let classNames = "list-group-item d-flex justify-content-between";
     if (increase) {
@@ -28,18 +30,29 @@ const EmployersListItem = (props) => {
     };
 
     const handleSalaryBlur = () => {
-        onSalaryChange(newSalary);
+        onSalaryChange(parseInt(newSalary, 10) || 0); // Преобразуем в число
+    };
+
+    const handleNameChange = (e) => {
+        setNewName(e.target.value);
+    };
+
+    const handleNameBlur = () => {
+        onNameChange(newName);
     };
 
     return (
         <li className={classNames}>
-            <span
+            <input
+                type="text"
                 className="list-group-item-label"
+                value={newName}
+                onChange={handleNameChange}
+                onBlur={handleNameBlur}
                 onClick={onToggleProp}
                 data-toggle="rise"
-            >
-                {name}
-            </span>
+                autoFocus
+            />
             <input
                 type="text"
                 className="list-group-item-input"

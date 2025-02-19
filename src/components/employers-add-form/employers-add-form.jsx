@@ -39,7 +39,7 @@ class EmployersAddForm extends Component {
             alert("Введите корректные данные сотрудника!");
             return;
         }
-        this.props.onAdd(this.state.name, this.state.salary);
+        this.props.onAdd(name, parseInt(salary, 10)); // Преобразуем salary в число
         this.setState({
             name: "",
             salary: "",

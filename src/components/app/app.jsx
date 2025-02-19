@@ -12,9 +12,11 @@ class App extends Component {
 
         const savedData = localStorage.getItem("employers");
 
-        // Инициализируем данные и вычисляем максимальный ID
         const initialData = savedData
-            ? JSON.parse(savedData)
+            ? JSON.parse(savedData).map((item) => ({
+                  ...item,
+                  salary: parseInt(item.salary, 10) || 0, // Преобразуем зарплату в число
+              }))
             : [
                   {
                       name: "John C.",
@@ -52,7 +54,12 @@ class App extends Component {
     }
 
     saveToLocalStorage = (data) => {
-        localStorage.setItem("employers", JSON.stringify(data));
+        // Преобразуем все зарплаты в числа перед сохранением в localStorage
+        const updatedData = data.map((item) => ({
+            ...item,
+            salary: parseInt(item.salary, 10) || 0, // Преобразуем зарплату в число, если это строка
+        }));
+        localStorage.setItem("employers", JSON.stringify(updatedData));
     };
 
     deleteItem = (id) => {
@@ -66,11 +73,11 @@ class App extends Component {
     };
 
     addItem = (name, salary) => {
-        if (!name.trim() || !salary.trim()) return;
+        if (!name.trim() || !salary) return;
 
         const newItem = {
             name,
-            salary: parseInt(salary, 10) || 0,
+            salary: parseInt(salary, 10) || 0, // Преобразуем зарплату в число
             increase: false,
             rise: false,
             id: this.state.maxId + 1,
@@ -99,10 +106,23 @@ class App extends Component {
     updateSalary = (id, newSalary) => {
         this.setState(({ data }) => {
             const updatedData = data.map((item) =>
-                item.id === id ? { ...item, salary: newSalary } : item
+                item.id === id
+                    ? { ...item, salary: parseInt(newSalary, 10) || 0 } // Преобразуем строку в число или 0
+                    : item
             );
             this.saveToLocalStorage(updatedData);
             return { data: updatedData };
+        });
+    };
+
+    // Новый метод который сохраняет изменение в имени сотрудников компании N
+    updateName = (id, newName) => {
+        this.setState(({ data }) => {
+            const updatedData = data.map((item) => {
+                return item.id === id ? { ...item, name: newName } : item;
+            });
+            this.saveToLocalStorage(updatedData); // Сохраняем изменения в localStorage
+            return { data: updatedData }; // Обновляем состояние
         });
     };
 
@@ -160,6 +180,7 @@ class App extends Component {
                     onDelete={this.deleteItem}
                     onToggleProp={this.onToggleProp}
                     onSalaryChange={this.updateSalary}
+                    onNameChange={this.updateName}
                 />
                 <EmployersAddForm onAdd={this.addItem} />
             </div>
