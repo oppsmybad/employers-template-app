@@ -4,7 +4,9 @@ import SearchPanel from "../search-panel/search-panel";
 import AppFilter from "../app-filter/app-filter";
 import EmployersList from "../employers-list/employers-list";
 import EmployersAddForm from "../employers-add-form/employers-add-form";
+import ThemeToggle from "../theme-toggle/theme-toggle";
 import "./app.css";
+import "../bootstrap-css/bootstrap.min.css";
 
 class App extends Component {
     constructor(props) {
@@ -28,7 +30,7 @@ class App extends Component {
                   },
                   {
                       name: "Alex M.",
-                      salary: 3000,
+                      salary: 1200,
                       increase: true,
                       rise: false,
                       description: "",
@@ -36,7 +38,7 @@ class App extends Component {
                   },
                   {
                       name: "Carl W.",
-                      salary: 5000,
+                      salary: 2000,
                       increase: false,
                       rise: false,
                       description: "",
@@ -82,7 +84,7 @@ class App extends Component {
             salary: parseInt(salary, 10) || 0,
             increase: false,
             rise: false,
-            description: "", // по умолчанию описание пустое
+            description: "",
             id: this.state.maxId + 1,
         };
 
@@ -129,12 +131,11 @@ class App extends Component {
     };
 
     updateDescription = (id, newDescription) => {
-        // Преобразуем пустые строки обратно в описание из state, если описание пустое
-        if (!newDescription.trim()) {
-            newDescription = this.state.data.find(
-                (item) => item.id === id
-            ).description;
-        }
+        const currentDescription = this.state.data.find(
+            (item) => item.id === id
+        ).description;
+
+        if (currentDescription === newDescription.trim()) return;
 
         this.setState(({ data }) => {
             const updatedData = data.map((item) =>
@@ -184,6 +185,9 @@ class App extends Component {
 
         return (
             <div className="app">
+                <div className="theme-toggle">
+                    <ThemeToggle />
+                </div>
                 <AppInfo employers={employers} increased={increased} />
 
                 <div className="search-panel">

@@ -1,0 +1,39 @@
+body.dark {
+    --background-color: #121212;
+    --text-color: #ffffff;
+    --button-bg: #3a3d3f;
+    --button-text-color: #ffffff;
+    --input-bg: #1f1f1f;
+    --input-border: gray;
+    --input-text-color: #ffffff;
+    --list-bg: #1f1f1f;
+    --list-border: gray;
+}
+body.dark {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+body.dark button {
+    background-color: var(--button-bg);
+    color: var(--button-text-color);
+    border: 1px solid var(--input-border);
+}
+body.dark button:hover {
+    opacity: 0.8;
+}
+body.dark input,
+body.dark textarea {
+    background-color: var(--input-bg);
+    color: var(--input-text-color);
+    border: 1px solid var(--input-border);
+}
+body.dark li {
+    background-color: var(--list-bg);
+    color: var(--text-color);
+    border: 1px solid var(--list-border);
+    padding: 20px 20px;
+}
+body.dark .btn-toggle {
+    color: var(--text-color);
+}

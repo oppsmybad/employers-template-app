@@ -16,7 +16,7 @@ const EmployersList = ({
             <EmployersListItem
                 key={id}
                 {...itemProps}
-                description={description} // Передаем описание
+                description={description}
                 onDelete={() => onDelete(id)}
                 onToggleProp={(e) =>
                     onToggleProp(
@@ -28,7 +28,7 @@ const EmployersList = ({
                 onNameChange={(newName) => onNameChange(id, newName)}
                 onDescriptionChange={(newDescription) =>
                     onDescriptionChange(id, newDescription)
-                } // Обработчик изменения описания
+                }
             />
         );
     });

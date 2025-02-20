@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./employers-list-item.css";
+import "../bootstrap-css/bootstrap.min.css";
 
 const EmployersListItem = (props) => {
     const {
@@ -50,26 +51,25 @@ const EmployersListItem = (props) => {
     };
 
     const handleDescriptionBlur = () => {
-        // Если описание пустое, возвращаем старое значение
         if (!newDescription.trim()) {
-            setNewDescription(description); // Восстанавливаем исходное описание
+            setNewDescription(description);
         }
         onDescriptionChange(newDescription);
         setIsEditingDescription(false);
     };
 
     useEffect(() => {
-        // Сохраняем изменения в localStorage только если описание изменилось
         if (newDescription !== description) {
-            onDescriptionChange(newDescription); // Обновляем данные в родительском компоненте
+            onDescriptionChange(newDescription);
         }
-    }, [newDescription, description, id, onDescriptionChange]);
+    }, [newDescription]);
 
     return (
         <li className={classNames}>
             <input
                 type="text"
-                className="list-group-item-label"
+                className="form-control list-group-item-label"
+                style={{ width: "auto" }}
                 value={newName}
                 onChange={handleNameChange}
                 onBlur={handleNameBlur}
@@ -79,15 +79,17 @@ const EmployersListItem = (props) => {
             />
             <input
                 type="text"
-                className="list-group-item-input"
+                className="form-control list-group-item-input"
+                style={{ width: "auto" }}
                 value={newSalary + "$"}
                 onChange={handleSalaryChange}
                 onBlur={handleSalaryBlur}
             />
-            {/* Компонент для описания заслуг сотрудника */}
             <div className="employers-description">
                 {isEditingDescription ? (
                     <textarea
+                        className="form-control"
+                        style={{ width: "auto" }}
                         value={newDescription}
                         onChange={handleDescriptionChange}
                         onBlur={handleDescriptionBlur}
