@@ -15,7 +15,7 @@ class App extends Component {
         const initialData = savedData
             ? JSON.parse(savedData).map((item) => ({
                   ...item,
-                  salary: parseInt(item.salary, 10) || 0, // Преобразуем зарплату в число
+                  salary: parseInt(item.salary, 10) || 0,
               }))
             : [
                   {
@@ -23,6 +23,7 @@ class App extends Component {
                       salary: 800,
                       increase: false,
                       rise: true,
+                      description: "",
                       id: 1,
                   },
                   {
@@ -30,6 +31,7 @@ class App extends Component {
                       salary: 3000,
                       increase: true,
                       rise: false,
+                      description: "",
                       id: 2,
                   },
                   {
@@ -37,6 +39,7 @@ class App extends Component {
                       salary: 5000,
                       increase: false,
                       rise: false,
+                      description: "",
                       id: 3,
                   },
               ];
@@ -54,10 +57,9 @@ class App extends Component {
     }
 
     saveToLocalStorage = (data) => {
-        // Преобразуем все зарплаты в числа перед сохранением в localStorage
         const updatedData = data.map((item) => ({
             ...item,
-            salary: parseInt(item.salary, 10) || 0, // Преобразуем зарплату в число, если это строка
+            salary: parseInt(item.salary, 10) || 0,
         }));
         localStorage.setItem("employers", JSON.stringify(updatedData));
     };
@@ -77,9 +79,10 @@ class App extends Component {
 
         const newItem = {
             name,
-            salary: parseInt(salary, 10) || 0, // Преобразуем зарплату в число
+            salary: parseInt(salary, 10) || 0,
             increase: false,
             rise: false,
+            description: "", // по умолчанию описание пустое
             id: this.state.maxId + 1,
         };
 
@@ -107,7 +110,7 @@ class App extends Component {
         this.setState(({ data }) => {
             const updatedData = data.map((item) =>
                 item.id === id
-                    ? { ...item, salary: parseInt(newSalary, 10) || 0 } // Преобразуем строку в число или 0
+                    ? { ...item, salary: parseInt(newSalary, 10) || 0 }
                     : item
             );
             this.saveToLocalStorage(updatedData);
@@ -115,14 +118,30 @@ class App extends Component {
         });
     };
 
-    // Новый метод который сохраняет изменение в имени сотрудников компании N
     updateName = (id, newName) => {
         this.setState(({ data }) => {
             const updatedData = data.map((item) => {
                 return item.id === id ? { ...item, name: newName } : item;
             });
-            this.saveToLocalStorage(updatedData); // Сохраняем изменения в localStorage
-            return { data: updatedData }; // Обновляем состояние
+            this.saveToLocalStorage(updatedData);
+            return { data: updatedData };
+        });
+    };
+
+    updateDescription = (id, newDescription) => {
+        // Преобразуем пустые строки обратно в описание из state, если описание пустое
+        if (!newDescription.trim()) {
+            newDescription = this.state.data.find(
+                (item) => item.id === id
+            ).description;
+        }
+
+        this.setState(({ data }) => {
+            const updatedData = data.map((item) =>
+                item.id === id ? { ...item, description: newDescription } : item
+            );
+            this.saveToLocalStorage(updatedData);
+            return { data: updatedData };
         });
     };
 
@@ -181,6 +200,7 @@ class App extends Component {
                     onToggleProp={this.onToggleProp}
                     onSalaryChange={this.updateSalary}
                     onNameChange={this.updateName}
+                    onDescriptionChange={this.updateDescription}
                 />
                 <EmployersAddForm onAdd={this.addItem} />
             </div>

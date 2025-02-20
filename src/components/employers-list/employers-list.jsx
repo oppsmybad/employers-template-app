@@ -8,13 +8,15 @@ const EmployersList = ({
     onToggleProp,
     onSalaryChange,
     onNameChange,
+    onDescriptionChange,
 }) => {
     const elements = data.map((item) => {
-        const { id, ...itemProps } = item;
+        const { id, description, ...itemProps } = item;
         return (
             <EmployersListItem
                 key={id}
                 {...itemProps}
+                description={description} // Передаем описание
                 onDelete={() => onDelete(id)}
                 onToggleProp={(e) =>
                     onToggleProp(
@@ -24,6 +26,9 @@ const EmployersList = ({
                 }
                 onSalaryChange={(newSalary) => onSalaryChange(id, newSalary)}
                 onNameChange={(newName) => onNameChange(id, newName)}
+                onDescriptionChange={(newDescription) =>
+                    onDescriptionChange(id, newDescription)
+                } // Обработчик изменения описания
             />
         );
     });

@@ -1,21 +1,25 @@
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
 import "./employers-list-item.css";
 
 const EmployersListItem = (props) => {
     const {
+        id,
         name,
         salary,
+        description,
         onDelete,
         onToggleProp,
         increase,
         rise,
         onSalaryChange,
         onNameChange,
+        onDescriptionChange,
     } = props;
 
     const [newSalary, setNewSalary] = useState(salary);
     const [newName, setNewName] = useState(name);
+    const [isEditingDescription, setIsEditingDescription] = useState(false);
+    const [newDescription, setNewDescription] = useState(description || "");
 
     let classNames = "list-group-item d-flex justify-content-between";
     if (increase) {
@@ -30,7 +34,7 @@ const EmployersListItem = (props) => {
     };
 
     const handleSalaryBlur = () => {
-        onSalaryChange(parseInt(newSalary, 10) || 0); // Преобразуем в число
+        onSalaryChange(parseInt(newSalary, 10) || 0);
     };
 
     const handleNameChange = (e) => {
@@ -40,6 +44,26 @@ const EmployersListItem = (props) => {
     const handleNameBlur = () => {
         onNameChange(newName);
     };
+
+    const handleDescriptionChange = (e) => {
+        setNewDescription(e.target.value);
+    };
+
+    const handleDescriptionBlur = () => {
+        // Если описание пустое, возвращаем старое значение
+        if (!newDescription.trim()) {
+            setNewDescription(description); // Восстанавливаем исходное описание
+        }
+        onDescriptionChange(newDescription);
+        setIsEditingDescription(false);
+    };
+
+    useEffect(() => {
+        // Сохраняем изменения в localStorage только если описание изменилось
+        if (newDescription !== description) {
+            onDescriptionChange(newDescription); // Обновляем данные в родительском компоненте
+        }
+    }, [newDescription, description, id, onDescriptionChange]);
 
     return (
         <li className={classNames}>
@@ -60,10 +84,24 @@ const EmployersListItem = (props) => {
                 onChange={handleSalaryChange}
                 onBlur={handleSalaryBlur}
             />
+            {/* Компонент для описания заслуг сотрудника */}
+            <div className="employers-description">
+                {isEditingDescription ? (
+                    <textarea
+                        value={newDescription}
+                        onChange={handleDescriptionChange}
+                        onBlur={handleDescriptionBlur}
+                    />
+                ) : (
+                    <p onClick={() => setIsEditingDescription(true)}>
+                        {newDescription || "Нажмите, чтобы добавить описание"}
+                    </p>
+                )}
+            </div>
             <div className="d-flex justify-content-center align-items-center">
                 <button
                     type="button"
-                    className="btn-cookie btn-sm "
+                    className="btn-cookie btn-sm"
                     onClick={onToggleProp}
                     data-toggle="increase"
                 >
@@ -72,7 +110,7 @@ const EmployersListItem = (props) => {
 
                 <button
                     type="button"
-                    className="btn-trash btn-sm "
+                    className="btn-trash btn-sm"
                     onClick={onDelete}
                 >
                     <i className="fas fa-trash"></i>

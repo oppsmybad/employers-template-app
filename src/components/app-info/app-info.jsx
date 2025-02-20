@@ -1,22 +1,14 @@
 import React, { useState } from "react";
 import "./app-info.css";
 
-const AppInfo = ({
-    increased,
-    employers,
-    initialCompanyName = "N", // Переименован пропс
-}) => {
-    // Состояние для хранения и изменения companyName
+const AppInfo = ({ increased, employers, initialCompanyName = "N" }) => {
     const [companyName, setCompanyName] = useState(initialCompanyName);
-    // Состояние для отслеживания режима редактирования
     const [isEditing, setEditing] = useState(false);
 
-    // Обработчик изменения значения в текстовом поле
     const handleNameChange = (e) => {
         setCompanyName(e.target.value);
     };
 
-    // Переключение режима редактирования
     const toggleEditing = () => {
         setEditing(!isEditing);
     };
@@ -30,15 +22,28 @@ const AppInfo = ({
                         type="text"
                         value={companyName}
                         onChange={handleNameChange}
-                        onBlur={toggleEditing} // Завершаем редактирование при потере фокуса
-                        autoFocus // Автоматически фокусируемся на поле ввода
+                        onBlur={toggleEditing}
+                        autoFocus
                     />
                 ) : (
-                    <span onClick={toggleEditing}>{companyName}</span> // Режим просмотра
+                    <span onClick={toggleEditing}>{companyName}</span>
                 )}
             </h1>
             <h2>Общее число сотрудников: {employers}</h2>
             <h2>Премию получат: {increased}</h2>
+
+            <div className="info-explanation">
+                <p style={{ fontSize: 14, marginTop: 20 }}>
+                    <strong>Печенька</strong> <i className="fas fa-cookie"></i>{" "}
+                    Этот символ обозначает, что сотрудник получил премию или
+                    бонус за свою работу.
+                </p>
+                <p style={{ fontSize: 14 }}>
+                    <strong>Звездочка</strong> <i className="fas fa-star"></i>{" "}
+                    Этот символ указывает на сотрудников, которые могут быть
+                    повышены.
+                </p>
+            </div>
         </div>
     );
 };
