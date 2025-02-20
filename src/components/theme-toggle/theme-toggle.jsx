@@ -6,14 +6,13 @@ const ThemeToggle = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
 
     useEffect(() => {
-        // Считываем сохраненную тему из localStorage
         const savedTheme = localStorage.getItem("theme");
         if (savedTheme) {
             setIsDarkMode(savedTheme === "dark");
-            document.body.classList.add(savedTheme); // Устанавливаем класс для body
+            document.body.classList.add(savedTheme);
         } else {
             localStorage.setItem("theme", "light");
-            document.body.classList.add("light"); // Устанавливаем светлую тему по умолчанию
+            document.body.classList.add("light");
         }
     }, []);
 
@@ -21,10 +20,8 @@ const ThemeToggle = () => {
         setIsDarkMode(!isDarkMode);
         const newTheme = !isDarkMode ? "dark" : "light";
 
-        // Сохраняем тему в localStorage
         localStorage.setItem("theme", newTheme);
 
-        // Удаляем старые классы и добавляем новый
         document.body.classList.remove("light", "dark");
         document.body.classList.add(newTheme);
     };
