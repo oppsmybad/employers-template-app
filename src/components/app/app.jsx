@@ -167,6 +167,8 @@ class App extends Component {
                 return items.filter((item) => item.rise);
             case "salaryMoreThen1000":
                 return items.filter((item) => item.salary > 1000);
+            case "bonus": // Новый фильтр для премии - бонуса
+                return items.filter((item) => item.increase);
             default:
                 return items;
         }

@@ -96,7 +96,7 @@ const EmployersListItem = (props) => {
                     />
                 ) : (
                     <p onClick={() => setIsEditingDescription(true)}>
-                        {newDescription || "Нажмите, чтобы добавить описание"}
+                        {newDescription || "Нажмите, чтобы добавить должность"}
                     </p>
                 )}
             </div>

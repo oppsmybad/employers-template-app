@@ -32,7 +32,7 @@ body.dark li {
     background-color: var(--list-bg);
     color: var(--text-color);
     border: 1px solid var(--list-border);
-    padding: 20px 20px;
+    padding: 20px 10px;
 }
 body.dark .btn-toggle {
     color: var(--text-color);

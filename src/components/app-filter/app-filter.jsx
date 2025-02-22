@@ -8,6 +8,7 @@ const AppFilter = (props) => {
             name: "salaryMoreThen1000",
             label: "З/П больше 1000$",
         },
+        { name: "bonus", label: "Премия - Бонус" },
     ];
 
     const buttons = buttonsData.map(({ name, label }) => {
