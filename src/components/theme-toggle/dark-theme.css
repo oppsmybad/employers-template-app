@@ -1,39 +1,121 @@
 body.dark {
-    --background-color: #121212;
-    --text-color: #ffffff;
-    --button-bg: #3a3d3f;
-    --button-text-color: #ffffff;
-    --input-bg: #1f1f1f;
-    --input-border: gray;
-    --input-text-color: #ffffff;
-    --list-bg: #1f1f1f;
-    --list-border: gray;
+    --background-color: #1a1a1a;
+    --text-color: #d0d0d0;
+    --button-bg: #2c2c2c;
+    --button-bg-hover: #5a5a5a;
+    --button-text-color: #d0d0d0;
+    --button-text-color-hover: #ffffff;
+    --input-bg: #252525;
+    --input-border: #4a4a4a;
+    --input-text-color: #d0d0d0;
+    --list-bg: #252525;
+    --list-border: #4a4a4a;
+    --panel-bg: #2c3e50;
+    --shadow-color: rgba(255, 255, 255, 0.1);
+    --accent-color: #4a90e2;
 }
+
 body.dark {
     background-color: var(--background-color);
     color: var(--text-color);
     transition: background-color 0.5s ease, color 0.5s ease;
 }
+
+body.dark .app-info:hover,
+body.dark .search-panel:hover,
+body.dark .employers-add-form:hover {
+    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    transition: all 0.3s ease-in-out;
+}
+
+body.dark .app-info,
+body.dark .search-panel,
+body.dark .employers-add-form {
+    background-color: var(--panel-bg);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+body.dark .app-list {
+    background-color: inherit !important;
+}
+
 body.dark button {
     background-color: var(--button-bg);
     color: var(--button-text-color);
     border: 1px solid var(--input-border);
+    border-radius: 6px;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease;
 }
+
 body.dark button:hover {
-    opacity: 0.8;
+    background-color: var(--button-bg-hover);
+    color: var(--button-text-color-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px var(--shadow-color);
 }
+
+body.dark button.active {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #ffffff;
+}
+
 body.dark input,
 body.dark textarea {
     background-color: var(--input-bg);
     color: var(--input-text-color);
     border: 1px solid var(--input-border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
+
+body.dark input:focus,
+body.dark textarea:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+    outline: none;
+}
+
+body.dark .search-panel input:focus {
+    transform: scaleY(1.05); /* Увеличение на 5% при фокусе */
+}
+
 body.dark li {
     background-color: var(--list-bg);
     color: var(--text-color);
     border: 1px solid var(--list-border);
-    padding: 20px 10px;
+    border-radius: 6px;
+    padding: 15px 10px;
+    margin-bottom: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
+body.dark li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+
 body.dark .btn-toggle {
     color: var(--text-color);
+    background-color: var(--button-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark .btn-toggle:hover {
+    background-color: var(--button-bg-hover);
+    color: var(--button-text-color-hover);
+}
+
+.alert .btn-close {
+    background-color: inherit !important;
+    border: none;
+    transform: translateY(-50%) !important;
+    padding: 0;
 }

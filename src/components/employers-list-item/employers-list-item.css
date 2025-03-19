@@ -67,3 +67,113 @@
 .employers-description {
     border-radius: 4px;
 }
+
+/* Базовые стили для уведомлений */
+.alert.alert {
+    width: 300px;
+    min-width: 400px; /* Ограничиваем максимальную ширину */
+    border-radius: 8px; /* Закруглённые углы */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Более мягкая тень */
+    padding: 15px 40px 15px 25px; /* Увеличиваем отступы, учитывая кнопку закрытия */
+    position: relative; /* Для позиционирования иконок */
+    transition: all 0.3s ease-in-out; /* Плавный переход для всех изменений */
+}
+
+/* Добавляем иконки перед текстом в зависимости от типа уведомления */
+.alert::before {
+    content: "";
+    position: absolute;
+    left: 1px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+}
+
+.alert-success::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2328a745' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E"); /* Иконка "галочка" для success */
+}
+
+.alert-info::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2317a2b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='12' y1='16' x2='12' y2='12'/%3E%3Cline x1='12' y1='8' x2='12' y2='8'/%3E%3C/svg%3E"); /* Иконка "информация" для info */
+}
+
+.alert-warning::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffc107' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2L2 20h20L12 2z'/%3E%3Cline x1='12' y1='16' x2='12' y2='16'/%3E%3Cline x1='12' y1='12' x2='12' y2='8'/%3E%3C/svg%3E"); /* Иконка "восклицательный знак" для warning */
+}
+
+/* Стили для текста уведомления */
+.alert-success {
+    background-color: #e6f4ea; /* Светло-зелёный фон */
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.alert-info {
+    background-color: #e7f3fe; /* Светло-синий фон */
+    border-color: #bee5eb;
+    color: #0c5460;
+}
+
+.alert-warning {
+    background-color: #fff3cd; /* Светло-жёлтый фон */
+    border-color: #ffeeba;
+    color: #856404;
+}
+
+/* Стили для кнопки закрытия */
+.alert .btn-close {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.alert .btn-close:hover {
+    opacity: 1;
+}
+
+/* Анимация появления */
+.alert.fade.show {
+    animation: slideIn 0.3s ease-in-out forwards;
+}
+
+/* Анимация исчезновения */
+.alert.fade:not(.show) {
+    animation: slideOut 0.3s ease-in-out forwards;
+}
+
+/* Ключевые кадры для анимации появления */
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Ключевые кадры для анимации исчезновения */
+@keyframes slideOut {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+/* Эффект при наведении */
+.alert:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Увеличиваем тень при наведении */
+    transform: translateY(-2px); /* Лёгкий подъём */
+    transition: all 0.3s ease-in-out;
+}

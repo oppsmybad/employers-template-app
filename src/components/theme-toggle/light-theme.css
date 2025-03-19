@@ -1,10 +1,74 @@
-body.light {
+body:not(.dark) {
+    --text-color: #333333;
+    --button-bg-hover: #e0e0e0;
+    --button-text-color: #333333;
+    --input-bg: #ffffff;
+    --input-border: #cccccc;
+}
+
+body:not(.dark) {
+    color: var(--text-color);
     transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-body.light li {
-    padding: 20px 10px;
+body:not(.dark) .app-info:hover,
+body:not(.dark) .search-panel:hover,
+body:not(.dark) .employers-add-form:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    transition: all 0.3s ease-in-out;
 }
+
+body:not(.dark) .app-list {
+    background-color: inherit !important;
+}
+
+body:not(.dark) input,
+body:not(.dark) textarea {
+    border: 1px solid var(--input-border);
+    padding: 8px 12px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body:not(.dark) .search-panel input:focus {
+    transform: scaleY(1.1); /* Увеличение на 5% при фокусе */
+}
+
+body:not(.dark) li {
+    margin-bottom: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+body:not(.dark) li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+body:not(.dark) .btn-toggle {
+    color: var(--text-color);
+    background-color: var(--button-bg);
+    border: 1px solid var(--input-border);
+    padding: 8px 12px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button {
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease;
+}
+
 button:hover {
+    background-color: var(--button-bg-hover);
     opacity: 0.8;
+    transform: translateY(-1px);
+}
+
+body:not(.dark) .btn-toggle:hover {
+    background-color: var(--button-bg-hover);
+    color: var(--button-text-color-hover);
+}
+
+body:not(.dark) .list-group-item.d-flex {
+    padding: 15px 10px;
+    margin-bottom: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }

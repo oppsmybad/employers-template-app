@@ -5,7 +5,7 @@ import AppFilter from "../app-filter/app-filter";
 import EmployersList from "../employers-list/employers-list";
 import EmployersAddForm from "../employers-add-form/employers-add-form";
 import ThemeToggle from "../theme-toggle/theme-toggle";
-import ImportExportComponent from "../file-manager/file-manager";
+// import ImportExportComponent from "../file-manager/file-manager";
 import "./app.css";
 import "../bootstrap-css/bootstrap.min.css";
 
@@ -167,7 +167,7 @@ class App extends Component {
                 return items.filter((item) => item.rise);
             case "salaryMoreThen1000":
                 return items.filter((item) => item.salary > 1000);
-            case "bonus": // Новый фильтр для премии - бонуса
+            case "bonus":
                 return items.filter((item) => item.increase);
             default:
                 return items;
