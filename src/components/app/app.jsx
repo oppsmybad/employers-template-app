@@ -5,7 +5,6 @@ import AppFilter from "../app-filter/app-filter";
 import EmployersList from "../employers-list/employers-list";
 import EmployersAddForm from "../employers-add-form/employers-add-form";
 import ThemeToggle from "../theme-toggle/theme-toggle";
-// import ImportExportComponent from "../file-manager/file-manager";
 import "./app.css";
 import "../bootstrap-css/bootstrap.min.css";
 
