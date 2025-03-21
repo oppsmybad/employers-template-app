@@ -192,7 +192,7 @@ const EmployersListItem = (props) => {
                         </p>
                     )}
                 </div>
-                <div className="d-flex justify-content-center align-items-center">
+                <div className="employers-icons d-flex justify-content-center align-items-center">
                     <button
                         type="button"
                         className="btn-cookie btn-sm"

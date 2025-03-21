@@ -2,3 +2,51 @@
     margin: 0 auto;
     max-width: 1000px;
 }
+
+@media (max-width: 575.98px) {
+    .btn-toggle {
+        width: 50%;
+        padding: 6px 10px;
+    }
+    .app-info {
+    }
+    h1 {
+        font-size: 2rem;
+    }
+    h2 {
+        font-size: 1.5rem;
+    }
+    input,
+    textarea {
+        padding: 6px 10px;
+    }
+    .btn-group {
+        flex-wrap: wrap !important;
+        gap: 5px;
+    }
+    .employers-description {
+        text-align: center;
+    }
+    .list-group-item {
+        flex-wrap: wrap !important;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .employers-icons {
+        display: flex;
+        flex-wrap: wrap !important;
+        flex-direction: row !important;
+    }
+    .add-form,
+    input {
+        display: flex;
+        flex-wrap: wrap !important;
+        gap: 10px;
+    }
+    h3 {
+        font-size: 1.5rem;
+    }
+    .alert.alert {
+        min-width: 300px;
+    }
+}
