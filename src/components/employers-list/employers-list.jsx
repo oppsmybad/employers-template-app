@@ -1,10 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import EmployersListItem from "../employers-list-item/employers-list-item";
-
 import "./employers-list.css";
 
 const EmployersList = ({
-    data,
+    data = [],
     onDelete,
     onToggleProp,
     onSalaryChange,
@@ -12,49 +11,44 @@ const EmployersList = ({
     onDescriptionChange,
 }) => {
     const [notification, setNotification] = useState({ message: "", type: "" });
-    const timerRef = useRef(null); // Для управления таймером уведомлений
-    const prevDataRef = useRef(data); // Для отслеживания изменений в data
+    const notificationTimerRef = useRef(null); // Отдельный реф для таймера уведомлений
+    const prevDataRef = useRef(data);
+    const fullDataRef = useRef(data);
 
-    // Функция для показа уведомления
     const showNotification = (message, type) => {
-        if (timerRef.current) {
-            clearTimeout(timerRef.current);
+        if (notificationTimerRef.current) {
+            clearTimeout(notificationTimerRef.current);
         }
 
         setNotification({ message, type });
 
-        timerRef.current = setTimeout(() => {
+        notificationTimerRef.current = setTimeout(() => {
             setNotification({ message: "", type: "" });
-            timerRef = null;
+            notificationTimerRef.current = null;
         }, 3000);
     };
 
-    // Отслеживание добавления нового сотрудника через изменения в data
     useEffect(() => {
-        const prevData = prevDataRef.current;
-        if (data.length > prevData.length) {
-            // Предполагаем, что добавлен новый сотрудник
-            const newEmployer = data.find(
-                (item) => !prevData.some((prevItem) => prevItem.id === item.id)
-            );
-            if (newEmployer) {
-                showNotification(
-                    `Сотрудник ${newEmployer.name} добавлен!`,
-                    "success"
-                );
-            }
-        }
-        prevDataRef.current = data; // Обновляем предыдущее значение
+        const prevData = prevDataRef.current || [];
+        const fullData = fullDataRef.current || [];
 
-        // Очистка таймера при размонтировании
-        return () => {
-            if (timerRef.current) {
-                clearTimeout(timerRef.current);
-            }
-        };
+        const newEmployer = data.find(
+            (item) => !fullData.some((prevItem) => prevItem.id === item.id)
+        );
+
+        if (newEmployer && data.length > prevData.length) {
+            showNotification(
+                `Сотрудник ${newEmployer.name} добавлен!`,
+                "success"
+            );
+            fullDataRef.current = [...data];
+        }
+
+        prevDataRef.current = data;
+
+        // Очистка теперь не затрагивает notificationTimerRef
     }, [data]);
 
-    // Обработчик удаления с уведомлением
     const handleDelete = (id) => {
         const deletedEmployer = data.find((item) => item.id === id);
         if (deletedEmployer) {
@@ -63,7 +57,7 @@ const EmployersList = ({
                 "danger"
             );
         }
-        onDelete(id); // Вызываем оригинальный onDelete
+        onDelete(id);
     };
 
     const elements = data.map((item) => {
@@ -91,7 +85,6 @@ const EmployersList = ({
 
     return (
         <>
-            {/* Уведомление */}
             {notification.message && (
                 <div
                     className={`alert alert-${notification.type} alert-dismissible fade show mt-2`}
